@@ -7,6 +7,9 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import {connect} from 'react-redux'
+import {updateNavigation} from '../actions/index'
+
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -60,7 +63,7 @@ const useStyles = makeStyles(theme => ({
       },
     },
   }));
-export default function Header () {
+function Header (props) {
     const classes = useStyles()
         return (
             <div className={classes.root}>
@@ -71,6 +74,7 @@ export default function Header () {
                   className={classes.menuButton}
                   color="inherit"
                   aria-label="Open drawer"
+                  onClick={props.showNav}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -95,3 +99,11 @@ export default function Header () {
           </div>
         )
     }
+
+    const mapDispatchToProps = (dispatch) => {
+      return {
+        showNav: () => dispatch(updateNavigation(true))
+      }
+    }
+
+    export default connect(() => ({}), mapDispatchToProps)(Header)
