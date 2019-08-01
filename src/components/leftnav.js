@@ -10,8 +10,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
-
-
+import {Link} from 'react-router-dom'
+import Constants from '../helpers/constants'
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -57,16 +57,16 @@ export default function SwipeableTemporaryDrawer({open, hide}) {
     >
       <List>
         <ListItem className={classes.justifyCenter}>
-          <Avatar className={classes.bigAvatar} />
+          <Avatar className={classes.bigAvatar} src="http://www.electronicwings.com/storage/mem.png" />
         </ListItem>
         <ListItem className={classes.justifyCenter}>
             <ListItemText> Suyesh Tiwari </ListItemText>
         </ListItem>
 
-        {['Skills', 'Academics', 'Companies', 'Projects', 'About me'].map((text, index) => (
-          <ListItem button key={text}>
+        {Constants.navigation.map((nav, index) => (
+          <ListItem button key={nav.url}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+            <Link to={`/${nav.url}`}><ListItemText primary={nav.name} /></Link>
           </ListItem>
         ))}
       </List>
